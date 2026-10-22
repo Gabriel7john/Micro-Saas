@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  plan      String   @default("free") // free | pro
+  createdAt DateTime @default(now())
+  store     Store?
+}
+
+model Store {
+  id       String    @id @default(cuid())
+  slug     String    @unique
+  name     String
+  whatsapp String // só dígitos, com DDI. Ex: 5577999999999
+  userId   String    @unique
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  products Product[]
+}
+
+model Product {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+  priceCents  Int
+  imageUrl    String?
+  active      Boolean @default(true)
+  storeId     String
+  store       Store   @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+
+  @@index([storeId])
+}

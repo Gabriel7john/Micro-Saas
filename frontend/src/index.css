@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f4f7f2;
+  --color-ink: #17261d;
+  --color-leaf: #128c4a;
+  --color-sun: #ffc93c;
+  --color-line: #d5ddd3;
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+}
+
+body { @apply bg-paper text-ink font-sans antialiased; }
+h1, h2, h3 { @apply font-display; }
+:focus-visible { outline: 3px solid var(--color-sun); outline-offset: 2px; }
+
+.btn { @apply inline-flex items-center justify-center rounded-lg bg-leaf px-4 py-2.5 font-bold text-white transition hover:brightness-110 disabled:opacity-50; }
+.btn-ghost { @apply inline-flex items-center justify-center rounded-lg border border-line px-4 py-2.5 font-medium hover:bg-white; }
+.field { @apply w-full rounded-lg border border-line bg-white px-3 py-2.5 outline-none focus:border-leaf; }
+.label { @apply mb-1 block text-sm font-medium; }
